@@ -7,6 +7,9 @@ import FilterComponent from "./FilterComponent";
 import BadgeNew from "./BadgeNew";
 import BadgeFeatured from "./BadgeFeatured";
 
+// Random Key ID
+import { nanoid } from "nanoid";
+
 const TabComponent = ({
   company,
   logo,
@@ -23,16 +26,17 @@ const TabComponent = ({
 }) => {
   return (
     <div
-      className={`w-full h-[200px] desktop:h-[120px] bg-white shadow-md shadow-dgcan rounded-md flex items-center justify-between gap-2 pt-4 px-8 ${
+      className={`w-full h-[200px] desktop:h-[120px] bg-white shadow-md shadow-dgcan rounded-md flex flex-col desktop:flex-row items-start desktop:items-center justify-between gap-2 pt-4 px-4 py-4 desktop:py-0 ${
         featured ? "border-l-4 border-primary" : null
       }`}
     >
+      <img src={logo} alt="logo" className="desktop:hidden w-10 h-10 -mt-8" />
       {/* Left Part */}
-      <div className="flex items-center jsutify-center gap-4">
+      <div className="flex items-start desktop:items-center justify-center gap-4">
         <img
           src={logo}
           alt=""
-          className="w-16 h-16 mobile:hidden desktop:block"
+          className="desktop:w-16 desktop:h-16 hidden desktop:block"
         />
         {/* Text Container */}
         <div className="flex flex-col gap-1 items-start justify-center">
@@ -57,8 +61,21 @@ const TabComponent = ({
           </div>
         </div>
       </div>
+      {/* Mobile Layout Line */}
+      <div className="w-full h-[1px] bg-dgcyan desktop:hidden"></div>
       {/* Right Part */}
-      <div className="flex items-center justify-between gap-2"></div>
+      <div className="flex items-start flex-wrap justify-start desktop:justify-between gap-2">
+        {role && <FilterComponent filter={role} />}
+        {level && <FilterComponent filter={level} />}
+        {languages &&
+          languages.map((language) => {
+            return <FilterComponent filter={language} key={nanoid()} />;
+          })}
+        {tools &&
+          tools.map((tool) => {
+            return <FilterComponent filter={tool} key={nanoid()} />;
+          })}
+      </div>
     </div>
   );
 };
