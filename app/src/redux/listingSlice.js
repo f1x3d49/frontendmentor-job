@@ -13,9 +13,12 @@ export const listingSlice = createSlice({
         state.filters.push(action.payload);
       }
     },
+    removeFilter: (state, action) => {
+      state.filters.filter((filter) => filter !== action.payload);
+    },
   },
 });
 
-export const { addFilter } = listingSlice.actions;
+export const { addFilter, removeFilter } = listingSlice.actions;
 
 export default listingSlice.reducer;

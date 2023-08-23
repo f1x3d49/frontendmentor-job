@@ -50,7 +50,9 @@ const TabComponent = ({
             </div>
           </div>
           {/* Position */}
-          <h1 className="text-vdgcyan font-[700] text-xl">{position}</h1>
+          <h1 className="text-vdgcyan font-[700] text-xl hover:cursor-pointer hover:text-primary">
+            {position}
+          </h1>
           {/* Other Info Container */}
           <div className="flex items-center justify-between gap-4">
             <p className="text-sm text-dgcyan">{postedAt}</p>

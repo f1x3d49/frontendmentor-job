@@ -1,13 +1,26 @@
+// React Hooks
+import { useState, useEffect } from "react";
+
 // Tab Component
 import TabComponent from "./components/TabComponent";
 
 // Redux Tools
 import { useSelector } from "react-redux";
+import FilterInput from "./components/FilterInput";
 
 function App() {
   // Redux State
   const listings = useSelector((state) => state.listing.listings);
   const filters = useSelector((state) => state.listing.filters);
+
+  // React State
+  const [show, setShow] = useState(false);
+
+  // Using this hooks in order to render filter input
+  useEffect(() => {
+    if (filters.length === 0) setShow(false);
+    else if (filters.length > 0) setShow(true);
+  }, [filters]);
 
   return (
     <div className="font-primary min-h-screen w-full flex flex-col">
@@ -15,10 +28,10 @@ function App() {
       <div className="relative w-full h-[150px] bg-primary">
         <div className="w-full h-full bg-mobile desktop:bg-desktop z-10 bg-no-repeat bg-cover"></div>
       </div>
-      {/* Filter Search Bar */}
-      {filters ? null : <div>hello</div>}
       {/* Content Section */}
       <div className="w-full h-full flex-1 bg-background flex flex-col gap-8 px-4 py-8 desktop:px-36 desktop:py-16">
+        {/* Filter Search Bar */}
+        {show ? <FilterInput /> : null}
         {listings.map((listing) => {
           return (
             <TabComponent
