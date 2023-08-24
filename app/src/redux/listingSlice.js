@@ -14,11 +14,40 @@ export const listingSlice = createSlice({
       }
     },
     removeFilter: (state, action) => {
-      state.filters.filter((filter) => filter !== action.payload);
+      state.filters = state.filters.filter(
+        (filter) => filter !== action.payload
+      );
+    },
+    removeAllFilter: (state) => {
+      state.filters = [];
+    },
+    filterListings: (state) => {
+      if (state.filters === []) {
+        state.listings = listingData;
+      } else {
+        state.listings = state.listings.filter(
+          (filter) =>
+            state.filters.includes(filter.role) ||
+            state.filters.includes(filter.level) ||
+            filter.languages.some((language) =>
+              state.filters.includes(language)
+            ) ||
+            filter.tools.some((tool) => state.filters.includes(tool))
+        );
+      }
+    },
+    restoreListings: (state) => {
+      state.listings = listingData;
     },
   },
 });
 
-export const { addFilter, removeFilter } = listingSlice.actions;
+export const {
+  addFilter,
+  removeFilter,
+  removeAllFilter,
+  filterListings,
+  restoreListings,
+} = listingSlice.actions;
 
 export default listingSlice.reducer;

@@ -5,7 +5,7 @@ import remove from "../images/icon-remove.svg";
 
 // Redux Tools
 import { useDispatch } from "react-redux";
-import { removeFilter } from "../redux/listingSlice";
+import { filterListings, removeFilter } from "../redux/listingSlice";
 
 const FilterInputComponent = ({ filter }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,10 @@ const FilterInputComponent = ({ filter }) => {
       {/* Filter Remove Button */}
       <button
         className="w-full h-full flex-1 px-2 py-[7px] bg-primary hover:bg-vdgcyan rounded-r-sm"
-        onClick={() => dispatch(removeFilter(filter))}
+        onClick={() => {
+          dispatch(removeFilter(filter));
+          dispatch(filterListings());
+        }}
       >
         <img src={remove} alt="remove" />
       </button>

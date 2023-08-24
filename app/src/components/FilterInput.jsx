@@ -4,13 +4,15 @@ import React from "react";
 import FilterInputComponent from "./FilterInputComponent";
 
 // Redux Tools
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeAllFilter, restoreListings } from "../redux/listingSlice";
 
 // Random Key ID
 import { nanoid } from "nanoid";
 
 const FilterInput = () => {
   const filters = useSelector((state) => state.listing.filters);
+  const dispatch = useDispatch();
 
   return (
     <div className="flex items-center justify-between w-full mobile:-mt-16 desktop:-mt-24 h-auto desktop:h-[60px] drop-shadow-md rounded-sm p-4 z-10 bg-white">
@@ -21,7 +23,13 @@ const FilterInput = () => {
         })}
       </div>
       {/* Clear Button */}
-      <button className="font-[700] text-dgcyan hover:text-primary hover:underline underline-offset-2 decoration-1s">
+      <button
+        className="font-[700] text-dgcyan hover:text-primary hover:underline underline-offset-2 decoration-1s"
+        onClick={() => {
+          dispatch(removeAllFilter());
+          dispatch(restoreListings());
+        }}
+      >
         Clear
       </button>
     </div>
