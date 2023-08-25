@@ -21,21 +21,20 @@ export const listingSlice = createSlice({
     removeAllFilter: (state) => {
       state.filters = [];
     },
-    filterListings: (state) => {
+    filterListings: (state, action) => {
       if (state.filters === null) {
         state.listings = listingData;
       } else {
         state.listings = state.listings.filter(
           (filter) =>
-            state.filters.includes(filter.role) ||
-            state.filters.includes(filter.level) ||
-            filter.languages.some((language) =>
-              state.filters.includes(language)
-            ) ||
-            filter.tools.some((tool) => state.filters.includes(tool))
+            action.payload === filter.role ||
+            action.payload === filter.level ||
+            filter.languages.some((language) => action.payload === language) ||
+            filter.tools.some((tool) => action.payload === tool)
         );
       }
     },
+
     restoreListings: (state) => {
       state.listings = listingData;
     },

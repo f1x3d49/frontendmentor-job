@@ -22,7 +22,7 @@ const FilterInputComponent = ({ filter }) => {
         onClick={() => {
           dispatch(removeFilter(filter));
           console.log(filters);
-          dispatch(filterListings());
+          dispatch(filterListings(filter));
         }}
       >
         <img src={remove} alt="remove" />
