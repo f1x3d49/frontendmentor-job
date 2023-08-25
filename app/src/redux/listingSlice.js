@@ -22,7 +22,7 @@ export const listingSlice = createSlice({
       state.filters = [];
     },
     filterListings: (state) => {
-      if (state.filters === []) {
+      if (state.filters === null) {
         state.listings = listingData;
       } else {
         state.listings = state.listings.filter(
