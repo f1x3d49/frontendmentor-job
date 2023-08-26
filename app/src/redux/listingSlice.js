@@ -21,16 +21,18 @@ export const listingSlice = createSlice({
     removeAllFilter: (state) => {
       state.filters = [];
     },
-    filterListings: (state, action) => {
-      if (state.filters === null) {
+    filterListings: (state) => {
+      if (!state.filters) {
         state.listings = listingData;
       } else {
         state.listings = state.listings.filter(
-          (filter) =>
-            action.payload === filter.role ||
-            action.payload === filter.level ||
-            filter.languages.some((language) => action.payload === language) ||
-            filter.tools.some((tool) => action.payload === tool)
+          (listing) =>
+            state.filters.includes(listing.role) ||
+            state.filters.includes(listing.level) ||
+            listing.languages.some((language) =>
+              state.filters.includes(language)
+            ) ||
+            listing.tools.some((tool) => state.filters.includes(tool))
         );
       }
     },

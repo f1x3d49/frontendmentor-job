@@ -11,15 +11,15 @@ import { removeAllFilter, restoreListings } from "../redux/listingSlice";
 import { nanoid } from "nanoid";
 
 const FilterInput = () => {
-  const filters = useSelector((state) => state.listing.filters);
+  const tags = useSelector((state) => state.tag);
   const dispatch = useDispatch();
 
   return (
     <div className="flex items-center justify-between w-full mobile:-mt-16 desktop:-mt-24 h-auto desktop:h-[60px] drop-shadow-md rounded-sm p-4 z-10 bg-white">
       {/* Filter Container */}
       <div className="flex items-center justify-start desktop:justify-between flex-wrap mobile:gap-2 desktop:gap-4">
-        {filters.map((filter) => {
-          return <FilterInputComponent filter={filter} key={nanoid()} />;
+        {tags.map((tag) => {
+          return <FilterInputComponent filter={tag} key={nanoid()} />;
         })}
       </div>
       {/* Clear Button */}

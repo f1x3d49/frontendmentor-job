@@ -11,16 +11,16 @@ import FilterInput from "./components/FilterInput";
 function App() {
   // Redux State
   const listings = useSelector((state) => state.listing.listings);
-  const filters = useSelector((state) => state.listing.filters);
+  const tags = useSelector((state) => state.tag);
 
   // React State
   const [show, setShow] = useState(false);
 
   // Using this hooks in order to render filter input
   useEffect(() => {
-    if (filters.length === 0) setShow(false);
-    else if (filters.length > 0) setShow(true);
-  }, [filters]);
+    if (tags.length === 0) setShow(false);
+    else if (tags.length > 0) setShow(true);
+  }, [tags]);
 
   return (
     <div className="font-primary min-h-screen w-full flex flex-col">

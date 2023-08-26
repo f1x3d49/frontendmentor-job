@@ -4,11 +4,10 @@ import React from "react";
 import remove from "../images/icon-remove.svg";
 
 // Redux Tools
-import { useDispatch, useSelector } from "react-redux";
-import { filterListings, removeFilter } from "../redux/listingSlice";
+import { useDispatch } from "react-redux";
+import { removeTag } from "../redux/tagSlice";
 
 const FilterInputComponent = ({ filter }) => {
-  const filters = useSelector((state) => state.listing.filters);
   const dispatch = useDispatch();
   return (
     <div className="flex items-center justify-center">
@@ -20,9 +19,7 @@ const FilterInputComponent = ({ filter }) => {
       <button
         className="w-full h-full flex-1 px-2 py-[7px] bg-primary hover:bg-vdgcyan rounded-r-sm"
         onClick={() => {
-          dispatch(removeFilter(filter));
-          console.log(filters);
-          dispatch(filterListings(filter));
+          dispatch(removeTag(filter));
         }}
       >
         <img src={remove} alt="remove" />
