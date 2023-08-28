@@ -11,12 +11,17 @@ export const tagSlice = createSlice({
         state.push(action.payload);
       }
     },
-    removeTag: (state, action) => {
-      state = state.filter((tag) => tag !== action.payload);
+    removeTag: (state, { payload }) => {
+      state = state.filter((filter) => filter !== payload);
+      return state;
+    },
+    removeAllTag: (state) => {
+      state = [];
+      return state;
     },
   },
 });
 
-export const { addTag, removeTag } = tagSlice.actions;
+export const { addTag, removeTag, removeAllTag } = tagSlice.actions;
 
 export default tagSlice.reducer;

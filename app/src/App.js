@@ -5,13 +5,17 @@ import { useState, useEffect } from "react";
 import TabComponent from "./components/TabComponent";
 
 // Redux Tools
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FilterInput from "./components/FilterInput";
+import { filterListings } from "./redux/listingSlice";
 
 function App() {
   // Redux State
-  const listings = useSelector((state) => state.listing.listings);
+  const listings = useSelector((state) => state.listing);
   const tags = useSelector((state) => state.tag);
+
+  // Redux Dispatch
+  const dispatch = useDispatch();
 
   // React State
   const [show, setShow] = useState(false);
@@ -19,8 +23,11 @@ function App() {
   // Using this hooks in order to render filter input
   useEffect(() => {
     if (tags.length === 0) setShow(false);
-    else if (tags.length > 0) setShow(true);
-  }, [tags]);
+    else if (tags.length > 0) {
+      setShow(true);
+      dispatch(filterListings(tags));
+    }
+  }, [tags, dispatch]);
 
   return (
     <div className="font-primary min-h-screen w-full flex flex-col">

@@ -5,10 +5,11 @@ import FilterInputComponent from "./FilterInputComponent";
 
 // Redux Tools
 import { useSelector, useDispatch } from "react-redux";
-import { removeAllFilter, restoreListings } from "../redux/listingSlice";
 
 // Random Key ID
 import { nanoid } from "nanoid";
+import { removeAllTag } from "../redux/tagSlice";
+import { resetJobs } from "../redux/listingSlice";
 
 const FilterInput = () => {
   const tags = useSelector((state) => state.tag);
@@ -26,8 +27,8 @@ const FilterInput = () => {
       <button
         className="font-[700] text-dgcyan hover:text-primary hover:underline underline-offset-2 decoration-1s"
         onClick={() => {
-          dispatch(removeAllFilter());
-          dispatch(restoreListings());
+          dispatch(removeAllTag());
+          dispatch(resetJobs());
         }}
       >
         Clear

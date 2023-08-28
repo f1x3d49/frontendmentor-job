@@ -1,54 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { listingData } from "../data";
+import { isSubArray } from "../helper/isSubArray";
+
+const initialState = listingData.map((listing) => ({
+  ...listing,
+  tags: [listing.role, listing.level, ...listing.languages, ...listing.tools],
+}));
 
 export const listingSlice = createSlice({
   name: "listing",
-  initialState: {
-    listings: listingData,
-    filters: [],
-  },
+  initialState,
   reducers: {
-    addFilter: (state, action) => {
-      if (!state.filters.find((element) => element === action.payload)) {
-        state.filters.push(action.payload);
-      }
+    filterListings: (state, { payload }) => {
+      if (payload.length === 0) return initialState;
+      return initialState.filter((listing) => {
+        let a = [];
+        const b = listing.tags;
+        payload.forEach((element) => {
+          a.push(element);
+        });
+        return isSubArray(a, b);
+      });
     },
-    removeFilter: (state, action) => {
-      state.filters = state.filters.filter(
-        (filter) => filter !== action.payload
-      );
-    },
-    removeAllFilter: (state) => {
-      state.filters = [];
-    },
-    filterListings: (state) => {
-      if (!state.filters) {
-        state.listings = listingData;
-      } else {
-        state.listings = state.listings.filter(
-          (listing) =>
-            state.filters.includes(listing.role) ||
-            state.filters.includes(listing.level) ||
-            listing.languages.some((language) =>
-              state.filters.includes(language)
-            ) ||
-            listing.tools.some((tool) => state.filters.includes(tool))
-        );
-      }
-    },
-
-    restoreListings: (state) => {
-      state.listings = listingData;
-    },
+    resetJobs: () => initialState,
   },
 });
 
-export const {
-  addFilter,
-  removeFilter,
-  removeAllFilter,
-  filterListings,
-  restoreListings,
-} = listingSlice.actions;
+export const { filterListings, resetJobs } = listingSlice.actions;
 
 export default listingSlice.reducer;
