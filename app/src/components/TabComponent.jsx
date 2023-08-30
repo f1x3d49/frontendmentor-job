@@ -1,5 +1,8 @@
 import React from "react";
 
+//Framer-motion
+import { motion } from "framer-motion";
+
 // Filter Component
 import FilterComponent from "./FilterComponent";
 
@@ -11,6 +14,7 @@ import BadgeFeatured from "./BadgeFeatured";
 import { nanoid } from "nanoid";
 
 const TabComponent = ({
+  key,
   company,
   logo,
   isnew,
@@ -25,10 +29,14 @@ const TabComponent = ({
   tools,
 }) => {
   return (
-    <div
+    <motion.div
       className={`w-full h-[200px] desktop:h-[120px] bg-white shadow-md shadow-dgcan rounded-md flex flex-col desktop:flex-row items-start desktop:items-center justify-between gap-2 pt-4 px-4 py-4 desktop:py-0 ${
         featured ? "border-l-4 border-primary" : null
       }`}
+      transition={{ delay: 0.1 * key }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
     >
       <img src={logo} alt="logo" className="desktop:hidden w-10 h-10 -mt-8" />
       {/* Left Part */}
@@ -78,7 +86,7 @@ const TabComponent = ({
             return <FilterComponent filter={tool} key={nanoid()} />;
           })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
