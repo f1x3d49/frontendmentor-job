@@ -7,7 +7,7 @@ import TabComponent from "./components/TabComponent";
 // Redux Tools
 import { useSelector, useDispatch } from "react-redux";
 import FilterInput from "./components/FilterInput";
-import { filterListings } from "./redux/listingSlice";
+import { filterListings, resetJobs } from "./redux/listingSlice";
 
 function App() {
   // Redux State
@@ -22,8 +22,10 @@ function App() {
 
   // Using this hooks in order to render filter input
   useEffect(() => {
-    if (tags.length === 0) setShow(false);
-    else if (tags.length > 0) {
+    if (tags.length === 0) {
+      setShow(false);
+      dispatch(resetJobs());
+    } else if (tags.length > 0) {
       setShow(true);
       dispatch(filterListings(tags));
     }
